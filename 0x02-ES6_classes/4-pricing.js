@@ -1,4 +1,5 @@
 /* eslint-disable */
+import Currency from "./3-currency";
 
 class Pricing {
     constructor(amount, currency) {
