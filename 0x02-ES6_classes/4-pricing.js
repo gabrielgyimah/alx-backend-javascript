@@ -1,54 +1,38 @@
 /* eslint-disable */
-import Currency from "./3-currency";
 
-class Pricing {
-    constructor(amount, currency) {
-        this._validateAmount(amount);
-        this._validateCurrency(currency);
-        this._amount = amount;
-        this._currency = currency;
-    }
+import Currency from './3-currency';
 
-    // getters
-    get amount() {
-        return this._amount;
-    }
+export default class Pricing {
+  constructor(amount, currency) {
+    this._amount = amount;
+    this._currency = currency;
+  }
 
-    get currency() {
-        return this._currency;
-    }
+  // Getters
+  get amount() {
+    return this._amount;
+  }
 
-    // Setters
-    set amount(amount) {
-        this._validateAmount(amount);
-        this._amount = amount;
-    }
+  get currency() {
+    return this._currency;
+  }
 
-    set currency(currency) {
-        this._validateCurrency(currency)
-        this._currency = currency;
-    }
-    
-    // Others
-    displayFullPrice() {
-        const { amount, currency } = this;
-        return `${amount} ${currency.name} (${currency.code})`;
-    }
+  // Setters
+  set amount(amount) {
+    if (typeof amount === 'number') this._amount = amount;
+  }
 
-    static convertPrice(amount, conversionRate) {
-        return amount * conversionRate;
-    }
+  set currency(currency) {
+    if (currency instanceof Currency) this._currency = currency;
+  }
 
-    // Validators
-    _validateCurrency(currency) {
-        if (!(currency instanceof Currency)) {
-            throw TypeError('Currency should be an instance of Currency class');
-        }
-    }
+  // Utilities
+  displayFullPrice() {
+    const { amount, currency } = this;
+    return `${amount} ${currency.name} (${currency.code})`;
+  }
 
-    _validateAmount(amount) {
-        if (typeof amount !== 'number') {
-            throw TypeError('Amount should be a number or float');
-        }
-    }
+  static convertPrice(amount, conversionRate) {
+    return amount * conversionRate;
+  }
 }
