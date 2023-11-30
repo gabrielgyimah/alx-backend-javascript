@@ -1,0 +1,57 @@
+/* eslint-disable */
+
+class Pricing {
+    constructor(amount, currency) {
+        this._validateAmount(amount);
+        this._validateCurrency(currency);
+        this._amount = amount;
+        this._currency = currency;
+    }
+
+    // getters
+    get amount() {
+        return this._amount;
+    }
+
+    get currency() {
+        return this._currency;
+    }
+
+    // Setters
+    set amount(amount) {
+        this._validateAmount(amount);
+        this._amount = amount;
+    }
+
+    set currency(currency) {
+        this._validateCurrency(currency)
+        if (currency instanceof Currency) {
+            this._currency = currency;
+        } else {
+            throw TypeError('Currency should be an instance of Currency class');
+        }
+    }
+    
+    // Others
+    displayFullPrice() {
+        const { amount, currency } = this;
+        return `${amount} ${currency.name} (${currency.code})`;
+    }
+
+    static convertPrice(amount, conversionRate) {
+        return amount * conversionRate;
+    }
+
+    // Validators
+    _validateCurrency(currency) {
+        if (!(currency instanceof Currency)) {
+            throw TypeError('Currency should be an instance of Currency class');
+        }
+    }
+
+    _validateAmount(amount) {
+        if (typeof amount !== 'number' || !Number.isFinite(amount) || amount % 1 !== 0) {
+            throw TypeError('Amount should be a number or float');
+        }
+    }
+}
