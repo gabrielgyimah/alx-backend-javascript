@@ -26,11 +26,7 @@ class Pricing {
 
     set currency(currency) {
         this._validateCurrency(currency)
-        if (currency instanceof Currency) {
-            this._currency = currency;
-        } else {
-            throw TypeError('Currency should be an instance of Currency class');
-        }
+        this._currency = currency;
     }
     
     // Others
@@ -51,7 +47,7 @@ class Pricing {
     }
 
     _validateAmount(amount) {
-        if (typeof amount !== 'number' || !Number.isFinite(amount) || amount % 1 !== 0) {
+        if (typeof amount !== 'number') {
             throw TypeError('Amount should be a number or float');
         }
     }
