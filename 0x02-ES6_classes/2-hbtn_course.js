@@ -1,25 +1,14 @@
 /* eslint-disable */
-
 export default class HolbertonCourse {
   constructor(name, length, students) {
-    if (typeof name !== 'string') {
-      throw TypeError('Name must be a string');
-    }
-
-    if (isNaN(length)) {
-      throw TypeError('Length must be a number');
-    }
-
-    if (!Array.isArray(students) || !students.every((std) => typeof std === 'string')) {
-      throw TypeError('Students must be an array of strings');
-    }
-
-    // If no errors, proceed with initialization
+    this._validateString(name, 'name');
+    this._validateNumber(length, 'length');
+    this._validateArrayOfStrings(students, 'students');
     this._name = name;
     this._length = length;
     this._students = students;
   }
-  // Getters
+
   get name() {
     return this._name;
   }
@@ -32,25 +21,32 @@ export default class HolbertonCourse {
     return this._students;
   }
 
-  // Setters
-  set name(name) {
-    if (typeof name !== 'string') {
-      throw TypeError('Name must be a string');
-    }
-    this._name = name;
+  set name(newName) {
+    this._validateString(newName, 'name');
+    this._name = newName;
   }
 
-  set length(length) {
-    if (isNaN(length)) {
-      throw TypeError('Length must be a number');
-    }
-    this._length = length
+  set length(newLength) {
+    this._validateNumber(newLength, 'length');
+    this._length = newLength;
   }
 
-  set students(students) {
-    if (!Array.isArray(students) || !students.every((std) => typeof std === 'string')) {
-      throw TypeError('Students must be an array of strings');
+  set students(newStudents) {
+    this._validateArrayOfStrings(newStudents, 'students');
+    this._students = newStudents;
+  }
+
+  _validateString(value, paramName) {
+    if (typeof value !== 'string') throw TypeError(`${paramName} must be a string`);
+  }
+
+  _validateNumber(value, paramName) {
+    if (typeof value !== 'number') throw TypeError(`${paramName} must be a number`);
+  }
+
+  _validateArrayOfStrings(value, paramName) {
+    if (!Array.isArray(value) || !value.every((el) => typeof el === 'string')) {
+      throw TypeError(`${paramName} must be an array of strings`);
     }
-    this._students = students;
   }
 }
