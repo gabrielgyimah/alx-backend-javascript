@@ -31,7 +31,7 @@ export default class Currency {
   }
 
   _validateString(property) {
-    if (typeof property !== 'string')
+    if (typeof property !== 'string') {
       throw TypeError(`${property} must be a string`);
     }
   }
